@@ -1,0 +1,12 @@
+Minification
+
+package javascript as class, for managing globals
+
+d3 // svg drawing packing
+
+atom electron
+
+restful api
+
+patterns/legacy app
+

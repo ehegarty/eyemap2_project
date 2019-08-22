@@ -1,0 +1,35 @@
+
+1. For Platform
+
+    Introduction to all files in the Pycharm platform: The platform consists of 161 files，Attachment is my table template ,please fill in the content of the cell in the green background.
+
+2. For Code
+
+    Source code document: please provide a function description about class, code segment, function, module and so on.
+    Source code annotation: Please add the internal annotation in the source code.
+
+3. For Database
+
+    ERD: Please make a Entity Relationship Diagram 
+    Data Management Documents: Database Configuration, Security, Maintenance and Backup Information
+
+4. For Security
+
+    Security document：Please give me a simple document containing the necessary user and login information, such as a list of user names, passwords, roles, permissions, password changes, etc.
+
+5. For Configuration
+
+    Configuration management document: about technical  Environment and configuration process information
+
+6. For Deployment
+
+    Deployment management document
+
+7. For business
+
+    Logic diagram or class diagram
+    For Issues and Risk
+
+8. For issues 
+
+    The unsolved problems or potential risk records of the software at present (if there are any).

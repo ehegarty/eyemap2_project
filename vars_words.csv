@@ -1,0 +1,35 @@
+0,name,level,description,formula,word_rep,fix_rep,priority
+1,EXP,Expt,"Exptal name abbreviation, taken from 3rd-5th digit of filename.",n,Yes,Yes,1
+2,List,Expt,"optional, taken from 6th digit of filename.",n,Yes,Yes,1
+3,Subject,Expt,"Subject code, taken from first two digits of filename.",n,Yes,Yes,1
+4,Var1,Expt,"optional, taken from 7th digit of filename.",n,Yes,Yes,4
+5,Var2,Expt,"optional, taken from 8th digit of filename.",n,Yes,Yes,4
+6,LineCount_T,Trial,Total number of lines for the Trial.,n,Yes,Yes,3
+7,SentenceCount_T,Trial,Total number of sentences for the Trial.,n,Yes,Yes,3
+8,TrialNum,Trial,Trial Number.,n,Yes,Yes,1
+9,TrialProperty,Trial,Properties defined in the trial.csv file.,n,Yes,Yes,4
+10,WordCount_T,Trial,Total number of words for the Trial.,n,Yes,Yes,2
+11,Fixated,Word,"1 if the word was fixated, 0 if not.",n,Yes,Yes,1
+12,FixCount_W,Word,Total number of fixations on the word.,n,Yes,Yes,1
+13,GazeCount_W,Word,Total number of Gazes (passes) on the word.,n,Yes,Yes,2
+14,LineNum_T,Word,Line number in the current Trial.,n,Yes,Yes,2
+15,BlinkCount_W,Word,Number of blinks on the word.,n,Yes,Yes,3
+16,SentenceNum_T,Word,Sentence number in the current Trial.,n,Yes,Yes,3
+17,TVDur_sac,Word,"Total Viewing Time (TVD), or the sum of all fixations on the word + Saccades.",n,Yes,Yes,1
+18,TVDur,Word,"Total Viewing Time (TVD), or the sum of all fixations on the word.",n,Yes,Yes,1
+19,Word,Word,"Word, without punctuation.",n,Yes,Yes,1
+20,WordBlinkDur,Word,Duration of the blinks in the word.,n,Yes,Yes,2
+21,WordCount_L,Word,Total number of words on the Line.,n,Yes,Yes,2
+22,WordCount_S,Word,Total number of words in the Sentence.,n,Yes,Yes,3
+23,WordLen_punct,Word,"Word Length, in letter, including punctuation.",n,Yes,Yes,1
+24,WordLen,Word,"Word length, in letters.",n,Yes,Yes,1
+25,WordLocX,Word,x-pixel location of the word (upper left corner).,n,Yes,Yes,4
+26,WordLocY,Word,y-pixel location of the word (upper left corner).,n,Yes,Yes,4
+27,WordNum_E,Word,Word number for the Expt.,n,Yes,Yes,3
+28,WordNum_L,Word,Word number on the Line.,n,Yes,Yes,1
+29,WordNum_S,Word,Word number in the Sentence.,n,Yes,Yes,2
+30,WordNum_T,Word,Word number for the Trial.,n,Yes,Yes,3
+31,WordProperty,Word,Properties defined in the word.csv file.,n,Yes,Yes,4
+85,G1F1,Fixation,The first fixation in the 1st gaze on the word.,n,Yes,No,3
+86,G1Fn,Fixation,The last fixation in the 1st gaze on the word.,n,Yes,No,3
+87,GnFn,Fixation,The last fixation in the last gaze on the word.,n,Yes,No,3

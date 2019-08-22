@@ -1,0 +1,55 @@
+1. User
+	a) id -> uniqe Identifier                           (done)
+	b) username -> charfield                            (done)
+	c) first name -> charfield                          (done)
+	d) last name -> charfield                           (done)
+	e) email -> email                                   (done)
+	f) password -> password                             (done)
+	g) avatar -> img file (set max size)                (done)
+	h) institute -> charfield                           (done)
+	i) student / Teacher -> binary option               (done)
+	j) last active -> date/time field                   (handled by django)
+	k) current experiments (can be collaborator, Max number?) -> FK Experiments (array?) 
+
+2. Experiment
+	a) Owner -> FK User Table                           (done)
+	b) Experiment name -> slugify (user entry)
+	c) config messages -> JSON String
+	d) html data -> JSON String
+	e) number of participants -> integer field
+	f) collaborators -> (unsure how to do this more thought required)
+	g) font association (maybe not required)
+
+3. Participants
+	a) Experiment -> FK Experiment
+	b) participant identifier -> charfield
+	c) drift data -> JSON String
+	d) Fixation Data -> JSON String
+	e) Saccade Data -> JSON String
+
+4. Config list
+	a) Owner -> FK User Table
+	b) Theme/Style -> (not important come back again)
+	c) Variable name list -> JSON String (linked to variable table via FK)
+	d) Preffered variable displays
+	e) Others?
+
+5. Exp variable lsit
+	a) Name -> charfield
+	b) Level -> charfield
+	c) Description -> text
+	d) formula -> (blank for now to be updated later)
+	e) word report -> (boolean value)
+	f) fixation report -> (boolean value)
+
+6. Fonts
+	a) Font name -> charfield
+	b) Font file -> true type font file (*.ttf)
+	c) Number of Experiments font used in -> integerfield
+
+Relationships
+i)   Users to Experiments (Many to Many)
+ii)  Experiments to participants (One to Many)
+iii) User to config (one to one)
+iv)  Exp Variable list to config variable name list (one to many)
+v)   Font to Experiment (one to many)
