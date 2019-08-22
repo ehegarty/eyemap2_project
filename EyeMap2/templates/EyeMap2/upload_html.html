@@ -1,0 +1,33 @@
+{% extends 'EyeMap2/base.html' %}
+
+{% load static %}
+
+{% block title %}Upload HTML File{% endblock %}
+
+{% block CSS %}{% endblock %}
+
+{% block body_block %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Upload HTML File</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-danger">
+                        Experiment name must not contain spaces, please use '-' or '_' instead.
+                        Please use your username for the owner field!
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+                        <fieldset>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" name="submit" class="btn btn-outline btn-primary btn-block">Upload
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

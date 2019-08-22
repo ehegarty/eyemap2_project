@@ -1,0 +1,53 @@
+/* ---------------------------------------------------
+    NAVBAR STYLE
+----------------------------------------------------- */
+#top-navbar {
+    padding: 0px 40px;
+    margin-bottom: 20px;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+    padding: 0px 40px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+#toolbar {
+    padding: 0;
+}
+
+#dis_area {
+    padding: 0;
+}
+
+#editFixOptions {
+    padding: 0;
+}
+
+#tool_display {
+    padding: 0;
+}
+
+#fix_display {
+    padding: 0;
+}
+
+#container {
+    margin-bottom: 10px;
+}
+
+.navbar-header a {
+    padding: 5px;
+}
+
+.navbar-header img {
+    height: 100%;
+}
+
+#finish-row {
+    padding-right: 10%;
+}

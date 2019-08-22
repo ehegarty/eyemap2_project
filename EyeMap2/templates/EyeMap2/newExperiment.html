@@ -1,0 +1,320 @@
+{% extends 'EyeMap2/base.html' %}
+
+{% load static %}
+
+{% block title %}Experiment Upload{% endblock %}
+
+{% block CSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'EyeMap2/css/newExperiment.css' %}">
+{% endblock %}
+
+{% block nav_block %}
+    {% include "EyeMap2/navMenu.html" %}
+    {% include "EyeMap2/navRight.html" %}
+{% endblock %}
+
+{% block body_block %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="stepwizard">
+                        <div class="stepwizard-row setup-panel">
+                            <div class="connecting-line"></div>
+                            <div class="stepwizard-step">
+                                <a href="#expName" type="button" class="btn btn-primary btn-circle">
+                                    1{% comment %}<i class="glyphicon glyphicon-pencil"></i>{% endcomment %}
+                                </a>
+                            </div>
+                            <div class="stepwizard-step">
+                                <a href="#expText" type="button" class="btn btn-default btn-circle"
+                                   disabled="disabled">
+                                    2{% comment %}<i class="glyphicon glyphicon-font">{% endcomment %}
+                                </a>
+                            </div>
+                            <div class="stepwizard-step">
+                                <a href="#expConfig" type="button" class="btn btn-default btn-circle"
+                                   disabled="disabled">
+                                    3{% comment %}<i class="glyphicon glyphicon-cog"></i>{% endcomment %}
+                                </a>
+                            </div>
+                            <div class="stepwizard-step">
+                                <a href="#expParticipants" type="button" class="btn btn-default btn-circle"
+                                   disabled="disabled">
+                                    4{% comment %}<i class="glyphicon glyphicon-user">{% endcomment %}
+                                </a>
+                            </div>
+                            <div class="stepwizard-step">
+                                <a href="#complete" type="button" class="btn btn-default btn-circle"
+                                   disabled="disabled">
+                                    5{% comment %}<i class="glyphicon glyphicon-ok">{% endcomment %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form id="upload" method="POST" enctype="multipart/form-data">
+                            <fieldset>
+                                {% csrf_token %}
+                                <div class="row setup-content" id="expName">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <h3>Experiment Name & Description</h3>
+                                        <p class="help-block">Please enter a name and description for the
+                                            experiment</p>
+                                        <div class="form-group">
+                                            <label class="control-label">Experiment Name</label>
+                                            <input id="exp_name" maxlength="30" type="text" required="required"
+                                                   class="form-control" placeholder="Enter Experiment Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Experiment Description</label>
+                                            <input id="exp_desc" maxlength="300" type="text" required="required"
+                                                   class="form-control"
+                                                   placeholder="Enter a description of the Experiment">
+                                        </div>
+                                        <ul class="list-inline pull-right">
+                                            <li>
+                                                <button type="button" class="btn btn-primary nextBtn pull-right">
+                                                    Next
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row setup-content" id="expText">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <h3>Experiment Text File</h3>
+                                        <p class="help-block">Please upload the Text file for the experiment</p>
+                                        <div class="form-group">
+                                            <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="30000"/>
+                                            <div>
+                                                <label for="textFile" class="control-label">Text file:</label>
+                                                <input type="file" id="textFile" name="textFile" required="required"/>
+                                                <div id="textFileDrag">Drop File here</div>
+                                            </div>
+                                        </div>
+                                        <div id="HTMLMessages">
+                                            <p></p>
+                                        </div>
+                                        <ul class="list-inline pull-right">
+                                            <li>
+                                                <button type="button" class="btn btn-primary prevBtn pull-right">
+                                                    Previous
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary nextBtn pull-right">
+                                                    Next
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row setup-content" id="expConfig">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <h3>Experiment Config File</h3>
+                                        <p class="help-block">Please upload the Config file for the experiment</p>
+                                        <div class="form-group">
+                                            <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE"
+                                                   value="30000"/>
+                                            <div>
+                                                <label for="textFile" class="control-label">Config file:</label>
+                                                <input type="file" id="configFile" name="configFile"/>
+                                                <div id="configFileDrag">Drop File here</div>
+                                            </div>
+                                        </div>
+                                        <div id="ConfigMessages">
+                                            <p></p>
+                                        </div>
+                                        <ul class="list-inline pull-right">
+                                            <li>
+                                                <button type="button" class="btn btn-primary prevBtn pull-right">
+                                                    Previous
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary nextBtn pull-right">
+                                                    Next
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row setup-content" id="expParticipants">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <h3>Experiment Participant Files</h3>
+                                        <p class="help-block">Please upload the Participant files for the experiment</p>
+                                        <div class="form-group">
+                                            <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE"
+                                                   value="30000"/>
+                                            <div>
+                                                <label for="partFiles" class="control-label">Participant files:</label>
+                                                <input type="file" id="partFiles" name="partFiles" required="required"/>
+                                                <div id="partFilesDrag">Drop File here</div>
+                                            </div>
+                                        </div>
+                                        <div id="PartMessages">
+                                            <p></p>
+                                        </div>
+                                        <ul class="list-inline pull-right">
+                                            <li>
+                                                <button type="button" class="btn btn-primary prevBtn pull-right">
+                                                    Previous
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary nextBtn pull-right">
+                                                    Next
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row setup-content" id="complete">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <img id="loading-exp" src="{% static 'EyeMap2/images/loading.gif' %}"
+                                             alt="EyeMap Logo" style="display: block; margin: auto">
+                                        <div id="CompleteMessages" style="display: none;">
+                                            <h4>You have successfully completed all steps.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="row" id="finish-row">
+                        <a href="{% url 'EyeMap2:index' %}" class="btn btn-success pull-right"
+                           style="display: none;" id="finish-button">Finish</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% comment %}Wizard taken from https://bootsnipp.com/snippets/featured/form-wizard-and-validation{% endcomment %}
+
+{% block js %}
+    <script src="{% static 'EyeMap2/js/newExperiment.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var navListItems = $('div.setup-panel div a'),
+                allWells = $('.setup-content'),
+                allNextBtn = $('.nextBtn'),
+                allPrevBtn = $('.prevBtn');
+
+            allWells.hide();
+
+            navListItems.click(function (e) {
+                e.preventDefault();
+                var $target = $($(this).attr('href')),
+                    $item = $(this);
+
+                if (!$item.hasClass('disabled')) {
+                    navListItems.removeClass('btn-primary').addClass('btn-default');
+                    $item.addClass('btn-primary');
+                    allWells.hide();
+                    $target.show();
+                    $target.find('input:eq(0)').focus();
+                }
+            });
+
+            allNextBtn.click(function () {
+                    var curStep = $(this).closest(".setup-content"),
+                        curStepBtn = curStep.attr("id"),
+                        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                        curInputs = curStep.find("input[type='text'],input[type='url']"),
+                        isValid = true;
+                    $(".form-group").removeClass("has-error");
+                    for (var i = 0; i < curInputs.length; i++) {
+                        if (!curInputs[i].validity.valid) {
+                            isValid = false;
+                            $(curInputs[i]).closest(".form-group").addClass("has-error");
+                        }
+                    }
+
+                    if (curStepBtn === 'expText') {
+                        $.ajax({
+                            url: '../check_font/',
+                            type: 'POST',
+                            data: {
+                                trialData: trialData,
+                                csrfmiddlewaretoken: "{{csrf_token}}"
+                            },
+                            success: function (data) {
+                                if (data !== 'fontFound') {
+                                    alert("Your font was not found in our database, Please contact your system administrator!");
+                                    window.location.href = {% url 'EyeMap2:index' %};
+                                }
+                            }
+                        });
+
+                    }
+
+                    {% comment %}if (curStepBtn === 'expConfig') {
+                        if (document.getElementById("configFile").files.length === 0) {
+                            configData = JSON.stringify(" ");
+                        }
+                    }{% endcomment %}
+
+                    if (curStepBtn === 'expParticipants') {
+                        var tempData = [];
+                        var tempNames = [];
+                        for (var i = 0; i < partData.length; i++) {
+                            if (typeof (partData[i]) !== "undefined") {
+                                tempData.push(partData[i]);
+                                tempNames.push(partFileNames[i]);
+                            }
+                        }
+                        partData = tempData;
+                        partFileNames = tempNames;
+                        $.ajax({
+                            url: '../save_new_experiment/',
+                            type: 'POST',
+                            data: {
+                                trialData: trialData,
+                                configData: configData,
+                                partData: partData,
+                                fileNames: partFileNames,
+                                expName: expName,
+                                expDesc: expDesc,
+                                csrfmiddlewaretoken: "{{csrf_token}}"
+                            },
+                            success: function () {
+                                var l = document.getElementById("loading-exp");
+                                l.style.display = "none";
+                                var m = document.getElementById("CompleteMessages");
+                                var msgh4 = document.createElement('h4');
+                                var text = document.createTextNode("Experiment: " + expName + " uploaded successfully");
+                                msgh4.appendChild(text);
+                                m.appendChild(msgh4);
+                                m.style.display = "block";
+
+                                var b = document.getElementById("finish-button");
+                                b.style.display = "block";
+                            }
+                        });
+
+                    }
+
+                    if (isValid) {
+                        if (curStepBtn === 'expName') {
+                            expName = document.getElementById("exp_name").value;
+                            expDesc = document.getElementById("exp_desc").value;
+                        }
+                        nextStepWizard.removeAttr('disabled').trigger('click');
+                    }
+                }
+            );
+
+            allPrevBtn.click(function () {
+                var curStep = $(this).closest(".setup-content"),
+                    curStepBtn = curStep.attr("id"),
+                    prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+                prevStepWizard.trigger('click');
+            });
+
+            $('div.setup-panel div a.btn-primary').trigger('click');
+        });
+    </script>
+{% endblock %}

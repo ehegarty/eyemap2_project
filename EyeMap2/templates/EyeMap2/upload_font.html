@@ -1,0 +1,58 @@
+{% extends 'EyeMap2/base.html' %}
+
+{% load static %}
+
+{% block title %}Upload Font File{% endblock %}
+
+{% block CSS %}{% endblock %}
+
+{% block nav_block %}
+    {% include "EyeMap2/navMenu.html" %}
+    {% include "EyeMap2/navRight.html" %}
+{% endblock %}
+
+{% block body_block %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Upload Font</h3>
+                </div>
+                <div class="panel-body">
+                    {% if uploadedFont %}
+                            <div class="alert alert-success">
+                                Successfully added font!
+                            </div>
+                            <a href="{% url 'EyeMap2:index' %}" class="btn btn-outline btn-primary btn-block"
+                               role="button">Go to Home Page</a>
+                    {% else %}
+                            <form enctype="multipart/form-data" method="post">
+                                {% csrf_token %}
+                                <table>
+                                {{ form.as_p }}
+                                </table>
+                                <input type="submit" value="Submit" />
+                            </form>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Current Fonts</h3>
+                </div>
+                <div class="panel-body">
+                    {% for font in font_list %}
+                        <ul>
+                            <li>{{ font.font_title }}</li>
+                        </ul>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+{% endblock %}

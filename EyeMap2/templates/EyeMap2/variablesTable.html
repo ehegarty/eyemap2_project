@@ -1,0 +1,222 @@
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#expt" data-toggle="tab">Expt</a></li>
+    <li><a href="#trial" data-toggle="tab">Trial</a></li>
+    <li><a href="#word" data-toggle="tab">Word</a></li>
+    <li><a href="#gaze" data-toggle="tab">Gaze</a></li>
+    <li><a href="#fixation" data-toggle="tab">Fixation</a></li>
+    <li><a href="#saccade" data-toggle="tab">Saccade</a></li>
+    <li><a href="#message" data-toggle="tab">Message</a></li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="expt">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    {% comment %}<th>Selected</th>{% endcomment %}
+                </tr>
+                </thead>
+                <tbody>
+                {% if variables %}
+                    {% for var in variables %}
+                        {% if var.var_cat == "Expt" %}
+                            <tr>
+                                <td>{{ var.var_name }}</td>
+                                <td>{{ var.var_des }}</td>
+                                {% comment %}<td><input type="checkbox" id="{{ var.var_name }}" onclick="" checked/></td>{% endcomment %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger">
+                        No Variables Found!
+                    </div>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="trial">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    {% comment %}<th>Selected</th>{% endcomment %}
+                </tr>
+                </thead>
+                <tbody>
+                {% if variables %}
+                    {% for var in variables %}
+                        {% if var.var_cat == "Trial" %}
+                            <tr>
+                                <td>{{ var.var_name }}</td>
+                                <td>{{ var.var_des }}</td>
+                                {% comment %}<td><input type="checkbox" id="{{ var.var_name }}" onclick="" checked/></td>{% endcomment %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger">
+                        No Variables Found!
+                    </div>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="word">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    {% comment %}<th>Selected</th>{% endcomment %}
+                </tr>
+                </thead>
+                <tbody>
+                {% if variables %}
+                    {% for var in variables %}
+                        {% if var.var_cat == "Word" %}
+                            <tr>
+                                <td>{{ var.var_name }}</td>
+                                <td>{{ var.var_des }}</td>
+                                {% comment %}<td><input type="checkbox" id="{{ var.var_name }}" onclick="" checked/></td>{% endcomment %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger">
+                        No Variables Found!
+                    </div>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="gaze">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    {% comment %}<th>Selected</th>{% endcomment %}
+                </tr>
+                </thead>
+                <tbody>
+                {% if variables %}
+                    {% for var in variables %}
+                        {% if var.var_cat == "Gaze" %}
+                            <tr>
+                                <td>{{ var.var_name }}</td>
+                                <td>{{ var.var_des }}</td>
+                                {% comment %}<td><input type="checkbox" id="{{ var.var_name }}" onclick="" checked/></td>{% endcomment %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger">
+                        No Variables Found!
+                    </div>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="fixation">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    {% comment %}<th>Selected</th>{% endcomment %}
+                </tr>
+                </thead>
+                <tbody>
+                {% if variables %}
+                    {% for var in variables %}
+                        {% if var.var_cat == "Fixation" %}
+                            <tr>
+                                <td>{{ var.var_name }}</td>
+                                <td>{{ var.var_des }}</td>
+                                {% comment %}<td><input type="checkbox" id="{{ var.var_name }}" onclick="" checked/></td>{% endcomment %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger">
+                        No Variables Found!
+                    </div>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="saccade">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    {% comment %}<th>Selected</th>{% endcomment %}
+                </tr>
+                </thead>
+                <tbody>
+                {% if variables %}
+                    {% for var in variables %}
+                        {% if var.var_cat == "Saccade" %}
+                            <tr>
+                                <td>{{ var.var_name }}</td>
+                                <td>{{ var.var_des }}</td>
+                                {% comment %}<td><input type="checkbox" id="{{ var.var_name }}" onclick="" checked/></td>{% endcomment %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger">
+                        No Variables Found!
+                    </div>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="message">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    {% comment %}<th>Selected</th>{% endcomment %}
+                </tr>
+                </thead>
+                <tbody>
+                {% if variables %}
+                    {% for var in variables %}
+                        {% if var.var_cat == "Message" %}
+                            <tr>
+                                <td>{{ var.var_name }}</td>
+                                <td>{{ var.var_des }}</td>
+                                {% comment %}<td><input type="checkbox" id="{{ var.var_name }}" onclick="" checked/></td>{% endcomment %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger">
+                        No Variables Found!
+                    </div>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

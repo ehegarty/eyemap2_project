@@ -1,0 +1,60 @@
+<!--################### Areas of Interest ###################################-->
+<ul class="nav navbar-nav">
+    <li>
+        <a href="#">
+            <input type="checkbox" id="show_aoi" onclick="drawData()" checked>
+            <label for="show_aoi">Show AOI's</label>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <input type="checkbox" id="show_text" onclick="drawData()" checked>
+            <label for="show_text">Show Text</label>&nbsp;
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <select id="select_aoi">
+                <option onclick="drawData()" value="letter">Character</option>
+                <option onclick="drawData()" selected="selected" value="word">Word</option>
+            </select>
+            <label for="select_aoi">Select AOI</label>
+        </a>
+    </li>
+</ul>
+<!--################### fixations ###################################-->
+<ul class="nav navbar-nav" id="fixOptions" style="display: none;">
+    <li>
+        <a href="#">
+            <input type="checkbox" id="show_L_eye" onclick="drawData()">
+            <label for="show_L_eye">Show L eye</label>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <input type="checkbox" id="show_R_eye" onclick="drawData()">
+            <label for="show_R_eye">Show R eye</label>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <input type="checkbox" id="dur_radius" onclick="change_trials()">
+            <label for="dur_radius">Use Duration Radius</label>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <input type="checkbox" id="editing" onclick="showEditOptions()">
+            <label for="editing">Allow Edit</label>
+        </a>
+    </li>
+</ul>
+<!--################### Scan Path ###################################-->
+<ul class="nav navbar-nav" id="scanOptions" style="display: none;">
+    <li>
+        <a href="#">
+            <input type="checkbox" id="show_Lines" onclick="drawData()" checked>
+            <label for="show_Lines">Show Joining Lines</label>
+        </a>
+    </li>
+</ul>

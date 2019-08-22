@@ -1,0 +1,156 @@
+{# form that holds drop down menu to select experiment   #}
+<form role="form" id="exp_filter" name="exp_filter" method="post" action="{% url 'EyeMap2:index' %}">
+    <fieldset>
+        {% csrf_token %}
+
+        <label style="float: left; margin-right: 10px;">
+            <select class="form-control input-sm" id="exp_fil" name="exp_name">
+                <option>SHOW ALL</option>
+                {% for part in allexp %}
+                    <option>{{ part.exp_name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <!-- Change this to a button or input when using this as a form -->
+        <button type="submit" name="submit" class="btn btn-primary ">search</button>
+    </fieldset>
+</form>
+
+{# if an experiment is selected, display all participants of experiment #}
+{% if participants %}
+    <form role="form" id="experiments" name="experiments" method="post" action="{% url 'EyeMap2:index' %}">
+        {% csrf_token %}
+        {% regroup participants by experiment as part_list %}
+
+        {% for part in part_list %}
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <h4>{{ part.grouper }}</h4>
+                    <input type="text" name="exp_name" value="{{ part.grouper }}" style="visibility: hidden">
+                    <input type="text" id="part_name" name="part_name" style="visibility: hidden"/>
+
+                    <table class="table table-hover" id="exp_table">
+                        <thead>
+                        <th>Participant Id</th>
+                        <th>Edited</th>
+                        <th>Select</th>
+                        <th>Version</th>
+                        <th>Delete Participant</th>
+                        </thead>
+                        <tbody>
+                        {% for p in part.list %}
+                            <tr id="{{ part.grouper }}">
+                                <td align="center" width="20%">{{ p.part_id }}</td>
+                                <td width="20%">
+                                    {% if p.version != 1.0 %}
+                                        <i class="fas fa-check"></i>
+                                    {% else %}
+                                        <i class="fas fa-times"></i>
+                                    {% endif %}
+                                </td>
+                                <td id="{{ p.part_id }}" width="20%">
+                                    <button type="button" class="btn btn-default btnSelect"
+                                            value="{{ p.part_id }}">Select
+                                    </button>
+                                </td>
+                                <td width="20%">{{ p.version }}</td>
+                                <td width="20%" id="{{ p.part_id }}">
+                                    <button type="submit"
+                                            onclick="return confirm('Are you sure you want to delete this participant?')"
+                                            name="delete" class="btn btn-danger btnDel ">Delete
+                                    </button>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </form>
+    {#   if SHOW ALL is selected, display main menu     #}
+{% elif participantNumber or emptyExp %}
+    <form role="form" id="experiments" name="experiments" method="post" action="{% url 'EyeMap2:index' %}">
+        {% csrf_token %}
+        {% regroup participantNumber by experiment as part_list %}
+        <div class="panel-body">
+            <div class="table-responsive">
+                <input type="text" id="exp_name" name="exp_name1" value="" style="visibility: hidden">
+
+                <table class="table table-hover" id="exp_table">
+                    <thead>
+                    <th>Experiment Name</th>
+                    <th>Number Of Participants</th>
+                    </thead>
+                    <tbody>
+                    {% for part in part_list %}
+                        <tr id="{{ part.name }}">
+                            <td align="left" width="30%">{{ part.grouper }}</td>
+                            <td width="30%">{{ part.list|length }}</td>
+                            <td width="20%">
+                                <form role="form" id="exp_filter" method="post" action="{% url 'EyeMap2:index' %}">
+                                    <fieldset>
+                                        {% csrf_token %}
+                                        <label style="float: left; margin-right: 10px;">
+                                            <select class="form-control input-sm exp" id="exp_fil" name="exp_name">
+                                                <option>{{ part.grouper }}</option>
+                                            </select>
+                                        </label>
+                                        <button type="submit" name="submit" class="btn btn-default ">Select</button>
+                                    </fieldset>
+                                </form>
+                            </td>
+                            <td width="20%" id="{{ part.grouper }}">
+                                <button type="submit"
+                                        onclick="return confirm('Are you sure you want to delete this experiment and all its participants?')"
+                                        name="deleteExp" class="btn btn-danger btnDelExp ">Delete
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <th>Experiment Name (Without Participants)</th>
+
+                    </thead>
+                    <tbody>
+                    {% for e in emptyExp %}
+                        <tr>
+                            <td align="left" width="50%">{{ e.exp_name }}</td>
+                            <td width="25%">
+                                <form role="form" id="exp_filter" method="post" action="{% url 'EyeMap2:index' %}">
+                                    <fieldset>
+                                        {% csrf_token %}
+                                        <label style="float: left; margin-right: 10px;">
+                                            <select class="form-control input-sm exp" id="exp_fil" name="exp_name">
+                                                <option>{{ e.exp_name }}</option>
+                                            </select>
+                                        </label>
+                                        <button type="submit" name="submit" class="btn btn-default ">Select</button>
+                                    </fieldset>
+                                </form>
+                            </td>
+                            <td width="25%" id="{{ e.exp_name }}">
+                                <button type="submit"
+                                        onclick="return confirm('Are you sure you want to delete this experiment?')"
+                                        name="deleteExp" class="btn btn-danger btnDelExp ">Delete
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+    {# if user hasn't uploaded any experiments, display error message #}
+{% else %}
+    <div class="alert alert-danger">
+        No Experiments To Show
+    </div>
+{% endif %}

@@ -1,0 +1,117 @@
+{% extends 'EyeMap2/base.html' %}
+
+{% load static %}
+
+{% block title %}Visualisations{% endblock %}
+
+{% block CSS %}{% endblock %}
+
+{% block nav_block %}
+    {% include "EyeMap2/navMenu.html" %}
+    {% include "EyeMap2/navRight.html" %}
+{% endblock %}
+
+{% block body_block %}
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="panel-body" id="toolbar">
+                        {% include 'EyeMap2/visualTabs.html' %}
+                    </div>
+                    <div class="panel-body" id="toolbar">
+                        {% include 'EyeMap2/toolbox.html' %}
+                    </div>
+                    <p>
+                        <button type="button" class="btn btn-warning" id="save">Save Img</button>
+                        <button type="button" class="btn btn-info" onclick="updateData()">Save Edits</button>
+                    </p>
+                    <div id="container" style="overflow-y: auto;"></div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Information
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="panel-body" id="dis_area">
+
+                    </div>
+                    <div class="panel-body" id="tool_display">
+
+                    </div>
+                    <div class="panel-body" id="fix_display">
+
+                    </div>
+                    <div class="panel-body" id="editFixOptions" style="display: none;">
+                        {% include 'EyeMap2/editToolbox.html' %}
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+    <!-- /.row -->
+{% endblock %}
+
+{% block js %}
+    <!-- DataTables JavaScript -->
+
+    <script src="{% static 'EyeMap2/js/opentype.min.js' %}"></script>
+    <script src="{% static 'EyeMap2/js/konva.min.js' %}"></script>
+    <script src="{% static 'EyeMap2/js/visuals/prepVisualise.js' %}"></script>
+    <script src="{% static 'EyeMap2/js/visuals/aois.js' %}"></script>
+    <script src="{% static 'EyeMap2/js/visuals/fixations.js' %}"></script>
+
+    <script type="text/javascript">
+        process_data({{ aoiData|safe }}, {{ fixData|safe }}, {{ saccData|safe }}, {{ driftData|safe }});
+        $(document).ready(function () {
+            //alert($('.nav-tabs .active').attr("value"));
+            $('.visPages').click(function () {
+                handleTabChange($(this).attr("value"));
+            });
+        });
+
+        /****************** ******************/
+        /********* Update data **************/
+        /****************** ******************/
+        var updateData = function () {
+            var trial_sel = document.getElementById("trials_sel").value;
+            all_fix_data[trial_sel - 1] = fixationsCircles;
+            clearSelFixes();
+            var newFixData = [];
+            for (var i = 0; i < all_fix_data.length; i++) {
+                newFixData = newFixData.concat(all_fix_data[i]);
+            }
+            newFixData = JSON.stringify(newFixData);
+            var newSaccData = [];
+            for (var i = 0; i < all_sacc_data.length; i++) {
+                newSaccData = newSaccData.concat(all_sacc_data[i]);
+            }
+            newSaccData = JSON.stringify(newSaccData);
+            var newDriftData = [];
+            for (var i = 0; i < all_drift_data.length; i++) {
+                newDriftData = newDriftData.concat(all_drift_data[i]);
+            }
+            newDriftData = JSON.stringify(newDriftData);
+            $.ajax({
+                url: '../update_data/',
+                type: 'POST',
+                data: {
+                    'newFixData': newFixData,
+                    'newSaccData': newSaccData,
+                    'newDriftData': newDriftData,
+                    csrfmiddlewaretoken: "{{csrf_token}}"
+                }
+            });
+        };
+    </script>
+
+{% endblock %}

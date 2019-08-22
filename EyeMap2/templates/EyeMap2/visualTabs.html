@@ -1,0 +1,31 @@
+<p class="text-primary" style="float: left; margin-right: 5px; padding-top: 10px;">Trial</p>
+<label style="float: left; margin-right: 10px;">
+    <select class="form-control input-sm" id="trials_sel" onchange="change_trials()"></select>
+</label>
+
+<ul class="nav nav-tabs">
+    <li class="active visPages" value="aoi"><a href="#aoi" data-toggle="tab" >Areas of Interest</a>
+    </li>
+    <li class="visPages" value="fix"><a href="#fixation" data-toggle="tab" >Fixations</a>
+    </li>
+    {% comment %}<li class="visPages" value="scan"><a href="#scanPath" data-toggle="tab" >Scan Path</a>
+    </li>
+    <li class="visPages" value="playback"><a href="#playback" data-toggle="tab" >Playback</a>
+    </li>{% endcomment %}
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="aoi">
+
+    </div>
+    <div class="tab-pane fade" id="fixation">
+
+    </div>
+    {% comment %}<div class="tab-pane fade" id="scanPath">
+
+    </div>
+    <div class="tab-pane fade" id="playback">
+
+    </div>{% endcomment %}
+</div>

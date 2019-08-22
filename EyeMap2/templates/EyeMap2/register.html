@@ -1,0 +1,41 @@
+{% extends 'EyeMap2/base.html' %}
+
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block CSS %}{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Register <i class="fa fa-info-circle fa-fw"></i>
+                    </div>
+                    <div class="panel-body">
+                        {% if registered %}
+                            <div class="alert alert-success">
+                                Thank you for Registering
+                            </div>
+                            <a href="{% url 'EyeMap2:index' %}" class="btn btn-outline btn-primary btn-block"
+                               role="button">Go to Home Page</a>
+                        {% else %}
+                            <form role="form" id="user_form" method="post" action="{% url 'EyeMap2:register' %}"
+                                  enctype="multipart/form-data">
+
+                                {% csrf_token %}
+                                {{ user_form.as_p }}
+                                {{ profile_form.as_p }}
+                                <button type="submit" name="submit" class="btn btn-outline btn-primary pull-right">
+                                    Register
+                                </button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'EyeMap2/base.html' %}
+
+{% load static %}
+
+{% block title %}EyeMap{% endblock %}
+
+{% block CSS %}
+    <style>
+        .exp {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block nav_block %}
+    {% if user.is_authenticated %}
+        {% include "EyeMap2/navMenu.html" %}
+        {% include "EyeMap2/navRight.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Welcome to EyeMap</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-danger">
+                        Warning - This website is still in the testing phase!
+                    </div>
+                    <p>EyeMap is a visualization and analysis tool for viewing, filtering, and processing eye movement
+                        (gaze) data from reading or other psychology experiments. Some advanced features of EyeMap are
+                        listed as follows:</p>
+                    <ul>
+                        <li>
+                            One of the first gaze data analysis software which supports automatically word/letter
+                            segmentation on proportional font types/unspaced texts;
+                        </li>
+                        <li>
+                            Generate many unique reading related variables;
+                        </li>
+                        <li>
+                            Easy gaze data editing: move/align fixations using keyboard arrows;
+                        </li>
+                        <li>
+                            Recreating text stimuli with Unicode, proportional and non-proportional fonts, spaced
+                            and unspaced scripts. Consequently it is well-suited for reading research on a wide
+                            range of writing systems.
+                        </li>
+                    </ul>
+                    <div class="alert alert-success">
+                        <p>User Experience Tasks - As you complete each task please complete the relevant section of
+                            the following questionnaire:
+                            <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=zPVUFDW7hUa72YYh_YBVye5pWlKU-zhOugGJ6WEX5VRUNDEyMk9QSjkxRjExVkFGVjVJNEgzTlAyMS4u">User Tasks Questionnaire</a>
+                        </p>
+                        <br/>
+                        <ol>
+                            <li>
+                                Register for EyeMap2
+                            </li>
+                            <li>
+                                Create a new Experiment and add participants
+                            </li>
+                            <li>
+                                Select a participant and explore the Visualisations page.
+                            </li>
+                            <li>
+                                Edit and save the alignment of Fixations
+                            </li>
+                            <li>
+                                Using the Web App take a screenshot of the Fixations and Areas of Interest
+                            </li>
+                            <li>
+                                Download a Word Report for your experiment
+                            </li>
+                        </ol>
+                        <br/>
+                        <p>When you have completed the above tasks please fill out the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=zPVUFDW7hUa72YYh_YBVye5pWlKU-zhOugGJ6WEX5VRUMEdaS0hQOTBTMjI2RUNURFNYQ1FLTThOSy4u">User Experience Questionnaire</a></p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% if user.is_authenticated %}
+                        Please Select Participant from Experiment
+                    {% else %}
+                        Please Sign In
+                    {% endif %}
+                </div>
+                <div class="panel-body">
+                    {% if user.is_authenticated %}
+                        {% include "EyeMap2/expTable.html" %}
+                        <a href="{% url 'EyeMap2:new_experiment' %}" class="btn btn-primary">Create Experiment</a>
+                    {% else %}
+                        {% include "EyeMap2/loginPanel.html" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $(".btnSelect").on('click', function () {
+                var currentExp = $(this).closest("tr").attr('id');
+                var currentPart = $(this).closest("td").attr('id');
+                console.log(currentExp)
+                console.log(currentPart)
+                $.ajax({
+                    url: '../EyeMap2',
+                    data: {
+                        exp: currentExp,
+                        part: currentPart
+                    },
+                    success: function () {
+                        var title = "Experiment: " + currentExp + ", Participant: " + currentPart;
+                        changeBttns(currentExp, title, currentPart);
+                    }
+                });
+            });
+
+            $(".btnDel").mouseover(function () {
+                var currentPart = $(this).closest("td").attr('id');
+                document.getElementById("part_name").setAttribute('value', currentPart);
+            });
+
+            $(".btnDelExp").mouseover(function () {
+                var currentExp = $(this).closest("td").attr('id');
+                document.getElementById("exp_name").setAttribute('value', currentExp);
+            });
+
+
+            $(".expSelect").click(function () {
+                $.post({% url 'EyeMap2:index' %},
+                    {
+                        name: this.value
+                    },
+                    function (data) {
+                        $('#exp_fil').val($(this).data(data)).trigger('change');
+                    });
+            });
+
+            function changeBttns(tableData, title, currentPart) {
+                var currentexp = document.getElementById("current_exp");
+                currentexp.innerHTML = '';
+                currentexp.innerHTML = title;
+                //Reset all buttons back to load status
+                var all_buttons = document.querySelectorAll(".btnSelect");
+                for (var i = 0; i < all_buttons.length; i++) {
+                    if ($(all_buttons[i]).closest("tr").attr('id') === tableData && $(all_buttons[i]).closest("td").attr('id') === currentPart) {
+                        window.location.href = "{% url 'EyeMap2:visualise' %}";
+                    }
+                    else {
+                        all_buttons[i].innerHTML = 'Select';
+                        $(all_buttons[i]).css('background-color', 'white');
+                    }
+                    all_buttons[i].disabled = false;
+                }
+            }
+        });
+    </script>
+{% endblock %}
+
