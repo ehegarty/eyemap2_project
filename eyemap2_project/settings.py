@@ -25,7 +25,7 @@ SECRET_KEY = '5k0!-d14qo+6qtwyv2_3)5e)%q3l)=_jluak+s*gc3wt_9g9&r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['', '127.0.0.1', 'webcourse.cs.nuim.ie']
+ALLOWED_HOSTS = ['', '127.0.0.1']
 
 
 # Application definition
